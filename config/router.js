@@ -23,4 +23,21 @@ router.post('/movies', function(req, res) {
 	});
 });
 
+router.put('/movie/:id', function(req, res) {
+	models.Movie.find({
+		where: {
+			id: req.params.id
+		}
+	}).then(function(movie) {
+		movie.updateAttributes({
+			title: req.body.title,
+			year: req.body.year,
+			genre: req.body.genre,
+			director: req.body.director
+		}).then(function(movie) {
+			res.json(movie);
+		});
+	});
+});
+
 module.exports = router;
